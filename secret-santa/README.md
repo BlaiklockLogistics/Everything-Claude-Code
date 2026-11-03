@@ -1,6 +1,6 @@
-# Secret Santa: North Pole Depot
+# Blaiklock Secret Santa
 
-A parcel-tracking themed Secret Santa page for the office. Each person signs in with their
+A Blaiklock Logistics parcel-tracking themed Secret Santa page for the office. Each person signs in with their
 work Microsoft 365 account, leaves a one-sentence note for their Secret Santa, then "tracks
 their parcel" and peels the shipping label to see who they're buying for, along with that
 person's note.
@@ -8,6 +8,22 @@ person's note.
 - Exchange day: Thursday 24 December 2026
 - Minimum spend: £20
 - Hosted free on Azure Static Web Apps, with Microsoft 365 sign-in built in
+
+## Blaiklock branding
+
+The page is already themed as Blaiklock Logistics: the packing tape, the header, the
+Blaiklock van on the tracking screen, the shipping label and the `BLK-` tracking numbers.
+Two things make it match the real brand:
+
+1. **Logo:** save the Blaiklock logo as `app/brand/logo.png` (a PNG with a transparent
+   background, roughly 360 x 88 pixels or similar). The page picks it up automatically and
+   shows it in the header in place of the "BLK" tile. An SVG also works: save it as
+   `app/brand/logo.svg` and change `brand/logo.png` to `brand/logo.svg` in `app/app.js`.
+2. **Colours:** at the top of `app/styles.css`, change `--brand` to the main Blaiklock
+   colour and `--brand-ink` to the colour that sits on top of it (usually white). These
+   colour the van, the logo tile and the top bar of the shipping label.
+
+The Christmas red tape and the kraft-paper background stay, so it still feels festive.
 
 ## How it keeps the pairs secret
 

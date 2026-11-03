@@ -34,7 +34,7 @@ function findGiftee(participants, secret, email) {
 // A fun, stable "tracking number" for each person's parcel. It reveals nothing.
 function trackingNumber(secret, email) {
   const hex = keyFor(secret, `track:${email}`).slice(0, 8).toUpperCase();
-  return `NP-${hex.slice(0, 4)}-${hex.slice(4)}`;
+  return `BLK-${hex.slice(0, 4)}-${hex.slice(4)}`;
 }
 
 module.exports = { findGiftee, orderParticipants, trackingNumber };

@@ -89,7 +89,7 @@
         return;
       }
       if (res.status === 500 && res.data.error === 'setup') {
-        showError('The depot isn\'t set up yet. Let the organiser know they need to finish the settings.');
+        showError('The Blaiklock depot isn\'t set up yet. Let the organiser know they need to finish the settings.');
         return;
       }
       if (res.status !== 200) { showError(); return; }
@@ -217,9 +217,9 @@
     const now = new Date();
     const minutesAgo = m => clock(new Date(now.getTime() - m * 60000));
     const steps = [
-      [minutesAgo(214), 'Collected from the North Pole depot'],
-      [minutesAgo(131), 'Sorted by elf no. 0428'],
-      [minutesAgo(47), 'Loaded onto the sleigh'],
+      [minutesAgo(214), 'Collected from the Blaiklock North Pole depot'],
+      [minutesAgo(131), 'Sorted by elf no. 0428 in the Blaiklock warehouse'],
+      [minutesAgo(47), 'Loaded onto the Blaiklock sleigh'],
       ['Now', 'Out for delivery'],
     ];
     requestAnimationFrame(() => {
@@ -366,12 +366,27 @@
         if (demo.locked) return Promise.resolve({ status: 403, data: { error: 'not_yet', revealOpensAt: event().revealOpensAt } });
         if (!demo.note) return Promise.resolve({ status: 409, data: { error: 'wishlist_first' } });
         return ok({
-          trackingNumber: 'NP-7F3A-19C2',
+          trackingNumber: 'BLK-7F3A-19C2',
           giftee: { name: sample.giftee.name, firstName: 'Priya', wishlist: sample.giftee.wishlist },
           event: event(),
         });
       },
     };
+  }
+
+  // ---------- Branding ----------
+
+  // Shows the Blaiklock logo if brand/logo.png has been added to the site,
+  // otherwise keeps the text mark.
+  function loadLogo() {
+    const src = window.SANTA_LOGO || 'brand/logo.png';
+    const probe = new window.Image();
+    probe.onload = () => {
+      $('brand-logo').src = src;
+      $('brand-logo').hidden = false;
+      $('brand-mark').hidden = true;
+    };
+    probe.src = src;
   }
 
   // ---------- Wire up ----------
@@ -380,5 +395,6 @@
   $('note-form').addEventListener('submit', saveNote);
   $('track-btn').addEventListener('click', track);
   $('peel').addEventListener('click', peel);
+  loadLogo();
   boot();
 }());

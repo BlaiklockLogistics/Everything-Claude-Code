@@ -85,7 +85,7 @@ test('the draw is stable for one secret and changes with a different secret', ()
   assert.equal(order(participants), order([...participants].reverse()));
   const other = orderParticipants(participants, 'a-completely-different-secret').map(p => p.email).join(',');
   assert.notEqual(order(participants), other);
-  assert.match(trackingNumber(SECRET, 'p1@example.co.uk'), /^NP-[0-9A-F]{4}-[0-9A-F]{4}$/);
+  assert.match(trackingNumber(SECRET, 'p1@example.co.uk'), /^BLK-[0-9A-F]{4}-[0-9A-F]{4}$/);
 });
 
 // ---------- Sign-in ----------

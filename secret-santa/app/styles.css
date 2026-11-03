@@ -1,7 +1,14 @@
-/* Layout: a depot gate pass. A narrow column of thermal-printed paper slips on
+/* Blaiklock Secret Santa.
+   Layout: a Blaiklock depot gate pass. A narrow column of thermal-printed paper slips on
    kraft cardboard, with red packing tape across the top. The shipping label is
    the one bold object on the page. */
 :root {
+  /* BLAIKLOCK BRAND COLOURS: swap these two for the official brand colours.
+     --brand fills the van, the logo tile and the top bar of the shipping label;
+     --brand-ink is the text and panel colour that sits on top of it. */
+  --brand: #1c1814;
+  --brand-ink: #ffffff;
+
   --bg: #d8c3a2;
   --fibre: #cdb48f;
   --fg: #231c15;
@@ -109,9 +116,12 @@ a { color: inherit; }
   display: grid; place-items: center;
   width: 44px; height: 44px;
   border: 2px solid var(--fg);
+  background: var(--brand);
+  color: var(--brand-ink);
   font: 900 15px/1 var(--font-display);
   letter-spacing: 0.06em;
 }
+.brand-logo { display: block; height: 44px; width: auto; max-width: 180px; object-fit: contain; }
 .brand-name { font: 900 20px/1 var(--font-display); text-transform: uppercase; letter-spacing: 0.04em; }
 .brand-sub { font: 400 12px/1.4 var(--font-mono); color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 3px; }
 .who { display: flex; gap: 12px; align-items: baseline; font-size: 14px; color: var(--fg-muted); }
@@ -196,10 +206,14 @@ textarea::placeholder { color: var(--paper-muted); }
 .countdown { font: 700 30px/1.1 var(--font-display); text-transform: uppercase; color: var(--red); font-variant-numeric: tabular-nums; margin-top: 6px !important; }
 
 /* Tracking animation */
-.road { position: relative; height: 44px; margin: 6px 0 4px; }
+.road { position: relative; height: 50px; margin: 6px 0 4px; }
 .road-line { position: absolute; left: 0; right: 0; bottom: 6px; border-bottom: 3px dashed var(--paper-muted); }
 .van { position: absolute; bottom: 4px; left: 0; transition: left 2.6s cubic-bezier(.45,.05,.35,1); }
-.van circle { fill: var(--paper-ink); }
+.van-body { fill: var(--brand); }
+.van-glass { fill: var(--brand-ink); opacity: 0.75; }
+.van-panel { fill: var(--brand-ink); }
+.van-text { fill: var(--brand); font: 900 9px/1 var(--font-display); letter-spacing: 0.08em; }
+.van-wheel { fill: var(--paper-ink); stroke: var(--paper); stroke-width: 2; }
 .timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .timeline li {
   display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 12px; align-items: baseline;
@@ -224,7 +238,7 @@ textarea::placeholder { color: var(--paper-muted); }
 .label > *:last-child { border-bottom: 0; }
 .label-top {
   display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap;
-  background: var(--paper-ink); color: var(--label-bg);
+  background: var(--brand); color: var(--brand-ink);
   font: 900 16px/1.2 var(--font-display); text-transform: uppercase; letter-spacing: 0.06em;
 }
 .label-svc { color: var(--label-accent); }
