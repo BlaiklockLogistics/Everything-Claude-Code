@@ -1,0 +1,13 @@
+{
+  "name": "secret-santa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Secret Santa reveal page with Microsoft 365 sign-in, hosted on Azure Static Web Apps.",
+  "scripts": {
+    "test": "node --test tests/santa.test.js",
+    "settings": "node tools/make-settings.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

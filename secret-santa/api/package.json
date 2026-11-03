@@ -1,0 +1,14 @@
+{
+  "name": "secret-santa-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Server side of the Secret Santa reveal: Microsoft 365 sign-in check, the draw and wishlist notes.",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@azure/data-tables": "13.3.2",
+    "@azure/functions": "4.17.0"
+  }
+}

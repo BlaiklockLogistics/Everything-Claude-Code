@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>North Pole Depot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- SANTA:BODY:START -->
+<div class="tape" aria-hidden="true"><span>Fragile &middot; Do not open until 24 December &middot; Santa priority &middot; Fragile &middot; Do not open until 24 December &middot; Santa priority &middot; Fragile &middot; Do not open until 24 December &middot; Santa priority &middot;</span></div>
+
+<div class="demo-bar" id="demo-bar" hidden>
+  <div class="wrap demo-inner">
+    <p><b>Demo</b> with sample people. The real page signs in with your Microsoft 365 account.</p>
+    <div class="demo-actions">
+      <button type="button" class="link-btn" id="demo-restart">Restart demo</button>
+      <button type="button" class="link-btn" id="demo-locked">Preview before the reveal date</button>
+    </div>
+  </div>
+</div>
+
+<header class="bar">
+  <div class="wrap bar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">NPL</span>
+      <div>
+        <div class="brand-name">North Pole Logistics</div>
+        <div class="brand-sub" id="event-name">Secret Santa 2026</div>
+      </div>
+    </div>
+    <div class="who" id="who" hidden>
+      <span id="who-name"></span>
+      <a href="/logout" id="sign-out">Sign out</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap page">
+  <section id="view-loading" class="notice" aria-live="polite">
+    <p class="eyebrow">Depot</p>
+    <p class="lede">Checking the manifest&hellip;</p>
+  </section>
+
+  <section id="view-signin" class="notice" hidden>
+    <p class="eyebrow">Depot notice</p>
+    <h1>You have 1 consignment awaiting collection.</h1>
+    <p class="lede">Sign in with your work Microsoft account to leave a note for your Secret Santa and find out who you're buying for.</p>
+    <a class="btn" href="/login" id="sign-in">Sign in with Microsoft</a>
+    <p class="fine">Use the same account you use for Outlook and Teams.</p>
+  </section>
+
+  <section id="view-notlisted" class="notice" hidden>
+    <p class="eyebrow">Not on the manifest</p>
+    <h1>We couldn't find a consignment for you.</h1>
+    <p class="lede">You're signed in as <b id="notlisted-email"></b>, which isn't on this year's list. If you should be taking part, ask the organiser to add this exact address.</p>
+    <a class="btn btn-quiet" href="/logout">Sign in with a different account</a>
+  </section>
+
+  <section id="view-error" class="notice" hidden>
+    <p class="eyebrow">Depot closed</p>
+    <h1>Something went wrong at the depot.</h1>
+    <p class="lede" id="error-text">Refresh the page to try again. If it keeps happening, let the organiser know.</p>
+  </section>
+
+  <section id="view-main" hidden>
+    <div class="hello">
+      <p class="eyebrow">Gate pass</p>
+      <h1>Hi <span id="first-name"></span>. There's a parcel with your name on it.</h1>
+      <dl class="facts">
+        <div><dt>Exchange day</dt><dd id="fact-date"></dd></div>
+        <div><dt>Minimum spend</dt><dd id="fact-spend"></dd></div>
+        <div><dt>Taking part</dt><dd id="fact-count"></dd></div>
+      </dl>
+    </div>
+
+    <article class="slip" aria-labelledby="note-title">
+      <header class="slip-head">
+        <span class="step">Step 1</span>
+        <h2 id="note-title">Delivery instructions</h2>
+      </header>
+      <p>Write one sentence to help whoever is buying for you: things you love, sizes, or what you definitely don't want. They'll see it on their reveal. They won't be told it came from you, and you won't see who they are.</p>
+      <form id="note-form" novalidate>
+        <label for="note" class="field-label">Your note to your Secret Santa</label>
+        <textarea id="note" name="note" rows="3" maxlength="300" placeholder="e.g. I love dark chocolate and anything for my garden, but please no more mugs!"></textarea>
+        <div class="form-foot">
+          <span class="counter" id="note-count">0 / 300</span>
+          <button type="submit" class="btn" id="note-save">Save note</button>
+        </div>
+        <p class="status" id="note-status" role="status"></p>
+      </form>
+    </article>
+
+    <article class="slip" aria-labelledby="track-title">
+      <header class="slip-head">
+        <span class="step">Step 2</span>
+        <h2 id="track-title">Track your consignment</h2>
+      </header>
+
+      <div id="track-locked" hidden>
+        <p>Parcels leave the depot on <b id="locked-date"></b>. Until then, make sure your note is saved so your Santa has something to go on.</p>
+        <p class="countdown" id="locked-countdown" aria-live="polite"></p>
+      </div>
+
+      <div id="track-neednote" hidden>
+        <p>Save your delivery instructions in step 1 first. Then you can track your parcel and see who you're buying for.</p>
+      </div>
+
+      <div id="track-ready" hidden>
+        <p>Your parcel is loaded and ready. Track it to see who you're buying for. Check nobody is reading over your shoulder.</p>
+        <button type="button" class="btn btn-red" id="track-btn">Track my parcel</button>
+      </div>
+
+      <div id="track-progress" hidden>
+        <div class="road" aria-hidden="true">
+          <div class="road-line"></div>
+          <svg class="van" id="van" viewBox="0 0 64 32" width="64" height="32" focusable="false">
+            <rect x="2" y="6" width="38" height="18" rx="2" fill="var(--red)"></rect>
+            <path d="M40 11h12l8 8v5H40z" fill="var(--red)"></path>
+            <rect x="44" y="13" width="8" height="5" fill="var(--paper)"></rect>
+            <rect x="8" y="12" width="26" height="5" fill="var(--paper)"></rect>
+            <circle cx="14" cy="26" r="4" fill="var(--fg)"></circle>
+            <circle cx="50" cy="26" r="4" fill="var(--fg)"></circle>
+          </svg>
+        </div>
+        <ol class="timeline" id="timeline"></ol>
+      </div>
+
+      <div id="track-label" hidden>
+        <div class="label" id="label">
+          <div class="label-top">
+            <span>North Pole Logistics</span>
+            <span class="label-svc">Santa Priority</span>
+          </div>
+          <div class="label-row">
+            <span class="k">Tracking no.</span>
+            <span class="mono" id="label-track"></span>
+          </div>
+          <div class="label-consignee">
+            <span class="k">Ship to</span>
+            <div class="consignee-wrap">
+              <p class="consignee" id="label-name"></p>
+              <button type="button" class="sticker" id="peel">Peel to reveal</button>
+            </div>
+          </div>
+          <div class="label-instr">
+            <span class="k">Delivery instructions</span>
+            <p id="label-note"></p>
+          </div>
+          <div class="label-grid">
+            <div><span class="k">Deliver by</span><b id="label-date"></b></div>
+            <div><span class="k">Min. declared value</span><b id="label-spend"></b></div>
+          </div>
+          <svg class="barcode" id="barcode" viewBox="0 0 300 48" preserveAspectRatio="none" aria-hidden="true" focusable="false"></svg>
+        </div>
+        <p class="fine" id="label-after" hidden>Keep it to yourself. Their note can change, so check back before you shop.</p>
+      </div>
+    </article>
+  </section>
+
+  <footer class="foot">
+    <p>Only you can see who you're buying for. The pairs are worked out on the server when you ask and aren't saved in any list that someone could open. Your note goes to your Secret Santa and nobody else.</p>
+  </footer>
+</main>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+<!-- SANTA:BODY:END -->
+<script src="app.js"></script>
+</body>
+</html>
